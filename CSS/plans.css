@@ -1,0 +1,715 @@
+/* Responsive Footer Styles */
+.footer {
+    width: 100%;
+    background: linear-gradient(90deg, #1976d2 60%, #21cbf3 100%);
+    color: #fff;
+    padding: 36px 0 18px 0;
+    margin-top: 48px;
+    box-shadow: 0 -2px 12px rgba(25,118,210,0.08);
+}
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 0 24px;
+}
+.footer-brand {
+    font-size: 1.5em;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #fff;
+}
+.footer-links {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 500;
+    transition: color 0.18s;
+    opacity: 0.92;
+}
+.footer-links a:hover {
+    color: #b3e5fc;
+    opacity: 1;
+}
+.footer-social {
+    display: flex;
+    gap: 12px;
+}
+.footer-social img {
+    width: 24px;
+    height: 24px;
+    filter: drop-shadow(0 1px 2px rgba(25,118,210,0.10));
+    transition: filter 0.18s, transform 0.18s;
+}
+.footer-social img:hover {
+    filter: brightness(8) drop-shadow(0 2px 6px #f8fafa);
+    transform: scale(1.1);
+}
+.footer-copy {
+    width: 100%;
+    text-align: center;
+    font-size: 0.98em;
+    color: #e3eafc;
+    margin-top: 18px;
+    opacity: 0.85;
+}
+@media (max-width: 900px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 0 6vw;
+    }
+    .footer-brand {
+        font-size: 1.2em;
+    }
+    .footer-links {
+        gap: 10px;
+        font-size: 0.98em;
+    }
+    .footer-social {
+        margin-top: 6px;
+    }
+}
+@media (max-width: 600px) {
+    .footer {
+        padding: 24px 0 12px 0;
+    }
+    .footer-content {
+        padding: 0 2vw;
+        gap: 6px;
+    }
+    .footer-brand {
+        font-size: 1em;
+    }
+    .footer-links {
+        gap: 6px;
+        font-size: 0.95em;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+        justify-items: start;
+        align-items: center;
+    }
+    .footer-links a {
+        width: 100%;
+        margin-bottom: 6px;
+    }
+    .footer-social img {
+        width: 20px;
+        height: 20px;
+    }
+    .footer-copy {
+        font-size: 0.92em;
+        margin-top: 10px;
+    }
+}
+/* Show only logo text on small screens, hide logo image */
+@media (max-width: 900px) {
+    .logo-img {
+        display: none !important;
+    }
+    .logo-text {
+        display: inline !important;
+        font-size: 0.9em;
+        font-weight: 800;
+        color: #1976d2;
+        letter-spacing: 1px;
+        margin-left: 0 !important;
+    }
+}
+/* Profile dashboard investment progress bar */
+.profile-dashboard-progress {
+    margin-bottom: 18px;
+    background: #e3eafc;
+    border-radius: 12px;
+    padding: 18px 18px 12px 18px;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.07);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.progress-title {
+    font-size: 1.08em;
+    color: #1976d2;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.progress-bar-wrap {
+    width: 100%;
+    max-width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.progress-bar-bg {
+    width: 100%;
+    height: 14px;
+    background: #c7e0fa;
+    border-radius: 7px;
+    overflow: hidden;
+    position: relative;
+}
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #1976d2 60%, #21cbf3 100%);
+    border-radius: 7px 0 0 7px;
+    transition: 0.5s;
+}
+.progress-bar-label {
+    font-size: 0.98em;
+    color: #1976d2;
+    font-weight: 600;
+    margin-top: 2px;
+    text-align: center;
+}
+@media (max-width: 600px) {
+    .profile-dashboard-progress {
+        padding: 10px 4vw 8px 4vw;
+        max-width: 95vw;
+    }
+    .progress-bar-wrap {
+        max-width: 90vw;
+    }
+}
+/* Navbar background and link styles for small screens */
+@media (max-width: 900px) {
+    .navbar {
+        height: 70px;
+        min-height: 72px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    #main-nav {
+        background: rgba(219, 239, 255, 0.97);
+        border-radius: 0 0 18px 18px;
+        box-shadow: 0 4px 18px rgba(25,118,210,0.10);
+        padding: 18px 0 12px 0;
+        margin-top: -25px;
+    }
+    #main-nav a {
+        display: block;
+        padding: 12px 18px;
+        margin: 0px 0 0 10px;
+        color: #1976d2;
+        font-size: 1.13em;
+        font-weight: 700;
+        border-radius: 8px;
+        background-color: #b8def7;
+        transition: background 0.18s, color 0.18s;
+        text-align: left;
+        letter-spacing: 2px;
+        width: 82%;
+    }
+    #main-nav a:hover, #main-nav a:focus {
+        background: linear-gradient(90deg, #e3eafc 60%, #b3e5fc 100%);
+        color: #1565c0;
+        outline: none;
+    }
+
+    #main-nav a.active {
+        background: #1976d2;
+        color: #fff;
+    }
+    .nav-divider {
+        margin: 0 0 0 8px;
+    }
+}
+/* Profile Modal Overlay and Modal Styles */
+#profile-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(30,40,60,0.32);
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+#profile-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+#profile-modal {
+    position: fixed;
+    top: 40%;
+    right: 4vw;
+    left: auto;
+    transform: translateY(-50%) scale(0.85);
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 48px rgba(25,118,210,0.18);
+    z-index: 2001;
+    min-width: 320px;
+    max-width: 95vw;
+    width: 370px;
+    padding: 32px 28px 24px 28px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.22s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#profile-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-50%) scale(1);
+}
+#profile-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: #1976d2;
+    cursor: pointer;
+    z-index: 2;
+    transition: color 0.18s;
+}
+#profile-modal-close:hover, #profile-modal-close:focus {
+    color: #d32f2f;
+    outline: none;
+}
+#profile-modal-title {
+    margin: 0 0 10px 0;
+    font-size: 1.3em;
+    color: #1976d2;
+    font-weight: 800;
+    text-align: center;
+}
+.profile-modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.profile-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.05em;
+    color: #444;
+    background: #f4f6fb;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-weight: 500;
+}
+.profile-info-label {
+    color: #1976d2;
+    font-weight: 600;
+    margin-right: 8px;
+}
+.profile-info-value {
+    color: #333;
+    font-weight: 500;
+    word-break: break-all;
+}
+@media (max-width: 600px) {
+    #profile-modal {
+        width: 80vw;
+        min-width: 0;
+        padding: 16px 4vw 12px 4vw;
+        right: 50%;
+        left: 25px;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    .profile-info-row {
+        font-size: 0.98em;
+        padding: 6px 2vw;
+    }
+}
+/* Dashboard balance card above plans */
+.dashboard-balance-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(25,118,210,0.08);
+    padding: 36px 32px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 280px;
+    max-width: 71vw;
+    margin: 0 auto 36px auto;
+    border: 0.5px solid #e3eafc;
+    transition: box-shadow 0.18s, border-color 0.18s;
+}
+.dashboard-balance-card:hover {
+    box-shadow: 0 8px 32px rgba(25,118,210,0.16);
+    border-color: #1976d2;
+}
+.balance-label {
+    font-size: 1.1em;
+    color: #888;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.user-name {
+    color: #1976d2;
+    font-weight: 700;
+    font-size: 1.08em;
+}
+.balance-extra-info {
+    margin-top: 8px;
+    font-size: 0.98em;
+    color: #555;
+    text-align: center;
+    background: #f4f6fb;
+    border-radius: 8px;
+    padding: 6px 14px;
+    box-shadow: 0 1px 4px rgba(25,118,210,0.04);
+    line-height: 1.6;
+}
+.balance-id-label, .balance-email-label {
+    color: #1976d2;
+    font-weight: 600;
+}
+.balance-id-value, .balance-email-value {
+    color: #333;
+    font-weight: 500;
+}
+
+.balance-amount {
+    font-size: 2.2em;
+    color: #1976d2;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+.balance-currency {
+    font-size: 1.1em;
+    color: #444;
+    font-weight: 600;
+}
+@media (max-width: 700px) {
+    .dashboard-balance-card {
+        padding: 18px 6vw 14px 6vw;
+        min-width: 0;
+        margin-bottom: 15px;
+        margin-top: 20px;
+    }
+    .balance-amount {
+        font-size: 1.3em;
+    }
+    .balance-label, .balance-currency {
+        font-size: 0.98em;
+    }
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: #f4f6fb;
+}
+.plans-main-content {
+    padding: 120px 0 40px 0;
+    min-height: 100vh;
+    background: #f4f6fb;
+}
+.plans-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #1976d2;
+    font-weight: 800;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+.plan-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(25,118,210,0.08);
+    padding: 32px 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform 0.18s, box-shadow 0.18s;
+    border: 2px solid #e3eafc;
+}
+.plan-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 8px 32px rgba(25,118,210,0.16);
+    border-color: #1976d2;
+}
+.plan-card h2 {
+    font-size: 1.35em;
+    color: #1976d2;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.plan-desc {
+    font-size: 1.05em;
+    color: #444;
+    margin-bottom: 18px;
+    font-weight: 500;
+}
+.plan-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.plan-card ul li {
+    font-size: 1em;
+    color: #222;
+    padding: 8px 0;
+    border-bottom: 1px solid #e3eafc;
+}
+.plan-card ul li:last-child {
+    border-bottom: none;
+}
+/* Responsive Invest Now button for each plan */
+.plan-action-btn {
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px 0;
+    background: linear-gradient(90deg, #1976d2 60%, #21cbf3 100%);
+    color: #fff;
+    font-size: 1.08em;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.08);
+    cursor: pointer;
+    transition: background 0.18s, transform 0.16s, box-shadow 0.18s;
+    letter-spacing: 0.5px;
+}
+.plan-action-btn:hover, .plan-action-btn:focus {
+    background: linear-gradient(90deg, #1565c0 60%, #00bcd4 100%);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 4px 16px rgba(25,118,210,0.16);
+    outline: none;
+}
+@media (max-width: 600px) {
+    .plan-action-btn {
+        font-size: 0.98em;
+        padding: 10px 0;
+        margin-top: 12px;
+    }
+}
+/* Invest Modal Overlay and Modal Styles */
+#invest-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(30,40,60,0.32);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+#invest-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+#invest-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 48px rgba(25,118,210,0.18);
+    z-index: 1001;
+    min-width: 320px;
+    max-width: 95vw;
+    width: 400px;
+    padding: 32px 28px 24px 28px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.22s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#invest-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+#invest-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: #1976d2;
+    cursor: pointer;
+    z-index: 2;
+    transition: color 0.18s;
+}
+#invest-modal-close:hover, #invest-modal-close:focus {
+    color: #d32f2f;
+    outline: none;
+}
+#invest-plan-name {
+    margin: 0 0 4px 0;
+    font-size: 1.4em;
+    color: #1976d2;
+    font-weight: 800;
+    text-align: center;
+}
+.modal-plan-desc {
+    color: #444;
+    font-size: 1.05em;
+    text-align: center;
+    margin-bottom: 8px;
+}
+#invest-plan-details ul {
+    margin: 0 auto 10px auto;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+}
+#invest-plan-details li {
+    font-size: 1em;
+    color: #222;
+    padding: 6px 0;
+    border-bottom: 1px solid #e3eafc;
+}
+#invest-plan-details li:last-child {
+    border-bottom: none;
+}
+.modal-payment-section {
+    margin-top: 10px;
+    background: #f4f6fb;
+    border-radius: 10px;
+    padding: 16px 12px 10px 12px;
+    font-size: 1em;
+}
+.modal-payment-section h3 {
+    margin: 0 0 8px 0;
+    color: #1976d2;
+    font-size: 1.1em;
+    font-weight: 700;
+}
+/* Bitcoin address row: make address fill available space, button stays at end */
+.btc-address-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0 8px 0;
+    word-break: break-all;
+}
+.btc-address {
+    font-family: 'Consolas', 'Menlo', monospace;
+    background: #e3eafc;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 1em;
+    color: #1976d2;
+    flex: 1 1 0%;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.copy-btc-btn {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.98em;
+    cursor: pointer;
+    transition: background 0.18s;
+    flex-shrink: 0;
+}
+.copy-btc-btn:hover, .copy-btc-btn:focus {
+    background: #1565c0;
+    outline: none;
+}
+.copy-btc-btn.copied {
+    background: #43a047 !important;
+    color: #fff;
+}
+.copy-btc-btn.copied:hover, .copy-btc-btn.copied:focus {
+    background: #388e3c;
+}
+.modal-note {
+    margin-top: 10px;
+    color: #888;
+    font-size: 0.98em;
+    text-align: center;
+}
+@media (max-width: 600px) {
+    #invest-modal {
+        width: 92vw;
+        min-width: 0;
+        max-width: 340px;
+        padding: 12px 2vw 10px 2vw;
+    }
+    #invest-plan-name {
+        font-size: 1.1em;
+    }
+    .modal-payment-section {
+        font-size: 0.98em;
+        padding: 10px 2vw 8px 2vw;
+    }
+}
+@media (max-width: 900px) {
+    .plans-main-content {
+        padding: 90px 0 24px 0;
+    }
+    .plans-title {
+        font-size: 2em;
+    }
+    .plans-grid {
+        gap: 18px;
+    }
+    .plan-card {
+        padding: 22px 10px 18px 10px;
+    }
+}
+@media (max-width: 600px) {
+    .plans-main-content {
+        padding: 70px 0 10px 0;
+    }
+    .plans-title {
+        font-size: 1.3em;
+    }
+    .plans-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 0 2vw;
+    }
+    .plan-card {
+        padding: 14px 4vw 12px 4vw;
+        max-width: 340px;
+        margin: 0 auto;
+    }
+    .plan-card:nth-child(3) {
+        max-width: none;
+        margin: initial;
+    }
+    .plan-card h2 {
+        font-size: 1.1em;
+    }
+    .plan-desc {
+        font-size: 0.98em;
+    }
+    .plan-card ul li {
+        font-size: 0.98em;
+        padding: 6px 0;
+    }
+}

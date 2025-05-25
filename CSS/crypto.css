@@ -1,0 +1,355 @@
+/* Get Started Button Styles */
+.get-started-btn {
+    margin-top: 32px;
+    padding: 16px 44px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(90deg, #1976d2 60%, #21cbf3 100%);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(25,118,210,0.10);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+.get-started-btn:hover {
+    background: linear-gradient(90deg, #1565c0 60%, #1976d2 100%);
+    transform: translateY(-2px) scale(1.03);
+}
+/* --- Crypto main content flex and image styles --- */
+.crypto-flex-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    flex-wrap: nowrap;
+    min-height: 60vh;
+}
+.crypto-text {
+    flex: 1 1 420px;
+    min-width: 320px;
+    max-width: 700px;
+    z-index: 1;
+    padding-top: 200px;
+    margin-left: 100px;
+}
+
+@media (max-width: 900px) {
+    .crypto-text {
+        margin-left: 10px;
+        padding-top: 40px;
+    }
+}
+
+
+@media (max-width: 900px) {
+    .crypto-text {
+        margin-left: 10px;
+        padding-top: 40px;
+    }
+}
+
+@media (max-width: 900px) {
+    .crypto-text {
+        margin-left: 10px;
+        padding-top: 40px;
+    }
+}
+
+
+@media (max-width: 900px) {
+    .crypto-text {
+        margin-left: 10px !important;
+        padding-top: 40px !important;
+    }
+}
+
+
+@media (max-width: 900px) {
+    .crypto-text {
+        margin-left: 10px;
+        padding-top: 40px;
+    }
+}
+
+@media (max-width: 900px) {
+    .crypto-text {
+        margin-left: 20px;
+        padding-top: 60px;
+    }
+}
+
+
+@media (max-width: 900px) {
+    .crypto-text {
+        margin-left: 30px;
+        padding-top: 80px;
+    }
+}
+
+.crypto-text h1 {
+    font-size: 5rem;
+    font-weight: 800;
+    color: #317fe6;
+    margin-bottom: 18px;
+    line-height: 1.1;
+}
+.crypto-text p {
+    font-size: 1.45rem;
+    color: #222;
+    font-weight: 500;
+    line-height: 1.5;
+    font-family: 'Courier New', Courier, monospace;
+}
+.crypto-img-wrap {
+    flex: 0 1 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    max-width: 520px;
+}
+.crypto-btc-img {
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+@media (max-width: 900px) {
+    .crypto-flex-content {
+        flex-direction: column;
+        gap: 24px;
+        align-items: stretch;
+        min-height: unset;
+    }
+    .crypto-img-wrap {
+        max-width: 100%;
+        justify-content: flex-start;
+    }
+    .crypto-btc-img {
+        max-width: 100%;
+        border-radius: 12px;
+    }
+}
+body { 
+    background: #f4f6fb; 
+    margin: 0;
+    font-family: 
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+}
+.navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.07);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 90px;
+}
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: #1976d2;
+    letter-spacing: 1px;
+}
+.navbar .logo img {
+    width: 60px; height: 60px; border-radius: 50%; 
+}
+.navbar .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin-left: 18px;
+}
+.navbar .hamburger span {
+    display: block;
+    width: 28px;
+    height: 4px;
+    background: #1976d2;
+    margin: 4px 0;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+.navbar nav {
+    display: flex;
+    gap: 28px;
+}
+.navbar nav a {
+    text-decoration: none;
+    color: #222;
+    font-size: 1.08em;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+.navbar nav a:hover {
+    color: #1976d2;
+}
+.navbar .login-btn {
+    margin-left: 32px;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 26px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.navbar .login-btn:hover {
+    background: #1565c0;
+}
+.crypto-main-content {
+    width: 100vw;
+    height: 100vh;
+    min-width: 0;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 0 0 0;
+    background: #fff url('../IMAGE/firstbtcpic.jpg') no-repeat center center;
+    background-size: cover;
+    border-radius: 0;
+    box-shadow: none;
+    transition: none;
+}
+
+@media (max-width: 700px) {
+    .crypto-main-content {
+        width: 100vw;
+        height: 100vh;
+        min-width: 0;
+        min-height: 90vh;
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
+        background-image: url('../IMAGE/firstbtcpic.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: #fff;
+        box-shadow: none;
+        position: relative;
+        overflow: hidden;
+    }
+    .crypto-main-content::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        backdrop-filter: blur(2px);
+        background: rgba(255,255,255,0.18);
+        z-index: 0;
+    }
+    .crypto-text, .crypto-main-content h1, .crypto-main-content p {
+        position: relative;
+        z-index: 1;
+    }
+    .crypto-main-content h1 {
+        font-size: 2.5rem;
+    }
+    .crypto-main-content p {
+        font-size: 1.6rem;
+    }
+    .crypto-main-content h1,
+    .crypto-main-content p {
+        color: #0f0f0f;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+}
+
+@media (max-width: 1200px) {
+    .crypto-main-content {
+        max-width: 98vw;
+        padding: 32px 2vw;
+        position: relative;
+        overflow: hidden;
+    }
+    .crypto-main-content::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        backdrop-filter: blur(4px);
+        background: rgba(255,255,255,0.10);
+        z-index: 0;
+    }
+    .crypto-text, .crypto-main-content h1, .crypto-main-content p {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+@media (max-width: 700px) {
+    .crypto-main-content {
+        max-width: 100vw;
+        padding: 18px 2vw;
+        margin-top: 90px;
+        border-radius: 0;
+    }
+}
+.logo-text {
+    display: inline;
+}
+@media (max-width: 900px) {
+    .navbar {
+        flex-direction: row;
+        height: auto;
+        padding: 0 10px;
+    }
+    .navbar-left {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .navbar nav {
+        gap: 16px;
+        position: absolute;
+        top: 90px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 18px 24px 18px 24px;
+        box-shadow: 0 2px 8px rgba(25,118,210,0.07);
+        display: none;
+    }
+    .navbar nav.open {
+        display: flex;
+    }
+    .navbar .hamburger { display: flex; margin-left: 16px; }
+    .navbar .login-btn {
+        margin-left: 0;
+    }
+    .crypto-main-content { margin-top: 120px; }
+    .logo-text {
+        display: none;
+    }
+}
+.navbar-col-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 100%;
+}
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

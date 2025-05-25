@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoNest Investment Plans - CryptoNest</title>
+    <link rel="stylesheet" href="../CSS/crypto.css">
+    <link rel="stylesheet" href="../CSS/plans.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="../IMAGE/btc.webp" alt="Logo" class="logo-img"><span class="logo-text"> CryptoNest</span>
+        </div>
+        <nav id="main-nav">
+            <a href="../index.html#home">Home</a>
+            <a href="../index.html#service">Service</a>
+            <a href="../index.html#blog">Blog</a>
+            <a href="../index.html#contact">Contact</a>
+            <a href="../index.html#faq">FAQ</a>
+            <a href="../index.html#updates">Updates</a>
+        </nav>
+        <div class="navbar-actions">
+            <img src="https://img.icons8.com/ios-filled/28/1976d2/user-male-circle.png" alt="Profile" class="profile-icon" id="profile-icon" style="cursor:pointer;" />
+            <div class="hamburger" id="hamburger-menu" tabindex="0" aria-label="Open navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <main class="plans-main-content">
+        <div class="dashboard-balance-card">
+            <div class="balance-label">Available Balance</div>
+            <div class="balance-amount">$12,500.00</div>
+            <div class="balance-currency">BTC: 0.185</div>
+        </div>
+        <h1 class="plans-title">CryptoNest Investment Plans</h1>
+        <div class="plans-grid">
+            <section class="plan-card">
+                <h2>Starter Plan</h2>
+                <p class="plan-desc">Perfect for beginners looking to start their crypto journey.</p>
+                <ul>
+                    <li>Min: $50</li>
+                    <li>Max: $499</li>
+                    <li>Daily ROI: 2%</li>
+                    <li>Duration: 7 days</li>
+                </ul>
+                <button class="plan-action-btn">Invest Now</button>
+            </section>
+            <section class="plan-card">
+                <h2>Bronze Plan</h2>
+                <p class="plan-desc">Step up your investment with higher returns.</p>
+                <ul>
+                    <li>Min: $500</li>
+                    <li>Max: $1,999</li>
+                    <li>Daily ROI: 2.5%</li>
+                    <li>Duration: 10 days</li>
+                </ul>
+                <button class="plan-action-btn">Invest Now</button>
+            </section>
+            <section class="plan-card">
+                <h2>Silver Plan</h2>
+                <p class="plan-desc">For steady and secure growth.</p>
+                <ul>
+                    <li>Min: $2,000</li>
+                    <li>Max: $4,999</li>
+                    <li>Daily ROI: 3%</li>
+                    <li>Duration: 14 days</li>
+                </ul>
+                <button class="plan-action-btn">Invest Now</button>
+            </section>
+            <section class="plan-card">
+                <h2>Gold Plan</h2>
+                <p class="plan-desc">Unlock premium returns for your investment.</p>
+                <ul>
+                    <li>Min: $5,000</li>
+                    <li>Max: $9,999</li>
+                    <li>Daily ROI: 3.5%</li>
+                    <li>Duration: 21 days</li>
+                </ul>
+                <button class="plan-action-btn">Invest Now</button>
+            </section>
+            <section class="plan-card">
+                <h2>Platinum Plan</h2>
+                <p class="plan-desc">For experienced investors seeking higher profits.</p>
+                <ul>
+                    <li>Min: $10,000</li>
+                    <li>Max: $24,999</li>
+                    <li>Daily ROI: 4%</li>
+                    <li>Duration: 30 days</li>
+                </ul>
+                <button class="plan-action-btn">Invest Now</button>
+            </section>
+            <section class="plan-card">
+                <h2>Diamond Plan</h2>
+                <p class="plan-desc">Elite plan for maximum returns and benefits.</p>
+                <ul>
+                    <li>Min: $25,000</li>
+                    <li>Max: $49,999</li>
+                    <li>Daily ROI: 4.5%</li>
+                    <li>Duration: 45 days</li>
+                </ul>
+                <button class="plan-action-btn">Invest Now</button>
+            </section>
+            <section class="plan-card">
+                <h2>VIP Plan</h2>
+                <p class="plan-desc">Exclusive plan for high-net-worth individuals.</p>
+                <ul>
+                    <li>Min: $50,000</li>
+                    <li>Max: $99,999</li>
+                    <li>Daily ROI: 5%</li>
+                    <li>Duration: 60 days</li>
+                </ul>
+                <button class="plan-action-btn">Invest Now</button>
+            </section>
+            <section class="plan-card">
+                <h2>Ultimate Plan</h2>
+                <p class="plan-desc">The highest tier for the most ambitious investors.</p>
+                <ul>
+                    <li>Min: $100,000</li>
+                    <li>No Max</li>
+                    <li>Daily ROI: 6%</li>
+                    <li>Duration: 90 days</li>
+                </ul>
+                <button class="plan-action-btn">Invest Now</button>
+            </section>
+        </div>
+    </main>
+    <script src="../JS/crypto.js"></script>
+</div>
+<!-- Profile Overlay Modal -->
+<div id="profile-modal-overlay"></div>
+<div id="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+    <button id="profile-modal-close" aria-label="Close profile modal">&times;</button>
+    <h2 id="profile-modal-title">User Profile</h2>
+    <div class="profile-modal-content">
+        <!-- Dashboard Investment Progress at the top -->
+        <div class="profile-dashboard-progress">
+            <div class="progress-title">Investment Progress</div>
+            <div class="progress-bar-wrap">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: 65%"></div>
+                </div>
+                <div class="progress-bar-label">$8,450 / $13,000</div>
+            </div>
+        </div>
+        <div class="profile-info-row"><span class="profile-info-label">Name:</span> <span class="profile-info-value">Your Name</span></div>
+        <div class="profile-info-row"><span class="profile-info-label">Account ID:</span> <span class="profile-info-value">CN-001234</span></div>
+        <div class="profile-info-row"><span class="profile-info-label">Email:</span> <span class="profile-info-value">your.email@example.com</span></div>
+        <div class="profile-info-row"><span class="profile-info-label">Account Address:</span> <span class="profile-info-value">0x1234abcd5678efgh9012ijkl3456mnop7890qrst</span></div>
+    </div>
+</div>
+<script src="../JS/plans.js"></script>
+</div>
+<!-- Invest Modal Overlay and Modal -->
+<div id="invest-modal-overlay"></div>
+<div id="invest-modal" role="dialog" aria-modal="true" aria-labelledby="invest-plan-name">
+    <button id="invest-modal-close" aria-label="Close modal">&times;</button>
+    <h2 id="invest-plan-name"></h2>
+    <p id="invest-plan-desc" class="modal-plan-desc"></p>
+    <div id="invest-plan-details"></div>
+    <div class="modal-payment-section">
+        <h3>How to Invest with Bitcoin</h3>
+        <ol>
+            <li>Send your investment amount to the following Bitcoin address:</li>
+            <li class="btc-address-row"><span class="btc-address">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</span> <button class="copy-btc-btn" onclick="navigator.clipboard.writeText('bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh')">Copy</button></li>
+            <li>After payment, email your transaction ID to <a href="mailto:support@cryptonest.com">support@cryptonest.com</a> for verification.</li>
+        </ol>
+        <div class="modal-note">* Your investment will be activated after payment confirmation.</div>
+    </div>
+</div>
+<script src="../JS/plans.js"></script>
+</body>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">CryptoNest</div>
+            <div class="footer-links">
+                <a href="../index.html#home">Home</a>
+                <a href="../index.html#service">Service</a>
+                <a href="../index.html#blog">Blog</a>
+                <a href="../index.html#contact">Contact</a>
+                <a href="../index.html#faq">FAQ</a>
+                <a href="../index.html#updates">Updates</a>
+            </div>
+            <div class="footer-social">
+                <a href="#" title="Twitter"><img src="https://img.icons8.com/ios-filled/24/1976d2/twitter.png" alt="Twitter"></a>
+                <a href="#" title="Facebook"><img src="https://img.icons8.com/ios-filled/24/1976d2/facebook-new.png" alt="Facebook"></a>
+                <a href="#" title="Instagram"><img src="https://img.icons8.com/ios-filled/24/1976d2/instagram-new.png" alt="Instagram"></a>
+            </div>
+            <div class="footer-copy">&copy; 2025 CryptoNest. All rights reserved.</div>
+        </div>
+    </footer>
+</html>
