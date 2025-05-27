@@ -1,3 +1,32 @@
+/* Logout Button Styles */
+.logout-btn {
+    width: 100%;
+    margin: 18px 0 0 0;
+    padding: 12px 0;
+    background: linear-gradient(90deg, #1976d2 60%, #21cbf3 100%);
+    color: #fff;
+    font-size: 1.08em;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.10);
+    cursor: pointer;
+    transition: background 0.18s, transform 0.16s;
+    letter-spacing: 0.5px;
+}
+.logout-btn:hover, .logout-btn:focus {
+    background: linear-gradient(90deg, #1565c0 60%, #1976d2 100%);
+    transform: translateY(-2px) scale(1.03);
+    outline: none;
+}
+@media (max-width: 600px) {
+    .logout-btn {
+        font-size: 0.98em;
+        padding: 10px 0;
+        border-radius: 7px;
+        margin-top: 12px;
+    }
+}
 /* Responsive Footer Styles */
 .footer {
     width: 100%;
@@ -711,5 +740,134 @@ body, html {
     .plan-card ul li {
         font-size: 0.98em;
         padding: 6px 0;
+    }
+}
+#withdraw-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(30,40,60,0.32);
+    z-index: 3000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+#withdraw-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+#withdraw-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 48px rgba(25,118,210,0.18);
+    z-index: 3001;
+    min-width: 320px;
+    max-width: 95vw;
+    width: 370px;
+    padding: 32px 28px 24px 28px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.22s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#withdraw-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+#withdraw-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: #1976d2;
+    cursor: pointer;
+    z-index: 2;
+    transition: color 0.18s;
+}
+#withdraw-modal-close:hover, #withdraw-modal-close:focus {
+    color: #d32f2f;
+    outline: none;
+}
+#withdraw-modal-title {
+    margin: 0 0 10px 0;
+    font-size: 1.3em;
+    color: #1976d2;
+    font-weight: 800;
+    text-align: center;
+}
+.withdraw-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.withdraw-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.withdraw-form label {
+    font-size: 1em;
+    color: #1976d2;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+.withdraw-form input[type="number"],
+.withdraw-form input[type="text"] {
+    padding: 12px;
+    border: 1.5px solid #b0c4de;
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+    transition: border 0.18s, box-shadow 0.18s;
+    background: #f4f6fb;
+}
+.withdraw-form input:focus {
+    border-color: #1976d2;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.10);
+}
+.withdraw-submit-btn {
+    width: 100%;
+    padding: 14px 0;
+    background: linear-gradient(90deg, #1976d2 60%, #21cbf3 100%);
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.10);
+    cursor: pointer;
+    transition: background 0.18s, transform 0.16s;
+    letter-spacing: 0.5px;
+}
+.withdraw-submit-btn:hover, .withdraw-submit-btn:focus {
+    background: linear-gradient(90deg, #1565c0 60%, #1976d2 100%);
+    transform: translateY(-2px) scale(1.03);
+    outline: none;
+}
+@media (max-width: 600px) {
+    #withdraw-modal {
+        width: 80vw;
+        min-width: 0;
+        padding: 16px 4vw 12px 4vw;
+    }
+    .withdraw-form label {
+        font-size: 0.98em;
+    }
+    .withdraw-form input[type="number"],
+    .withdraw-form input[type="text"] {
+        font-size: 0.98em;
+        padding: 10px;
+    }
+    .withdraw-submit-btn {
+        font-size: 0.98em;
+        padding: 10px 0;
     }
 }

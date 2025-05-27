@@ -1,17 +1,62 @@
-// On profile modal open, fill in name, email, and account address from localStorage if available
+// Logout button logic
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            // Clear user data (for demo: clear all localStorage)
+            localStorage.clear();
+            // Show notification before redirect
+            showLogoutNotification();
+        });
+    }
+});
+
+// Notification function
+function showLogoutNotification() {
+    // Create notification element
+    const notif = document.createElement('div');
+    notif.textContent = 'You have been logged out.';
+    notif.style.position = 'fixed';
+    notif.style.top = '24px';
+    notif.style.left = '50%';
+    notif.style.transform = 'translateX(-50%)';
+    notif.style.background = 'linear-gradient(90deg, #1976d2 60%, #21cbf3 100%)';
+    notif.style.color = '#fff';
+    notif.style.padding = '14px 32px';
+    notif.style.borderRadius = '8px';
+    notif.style.fontSize = '1.1em';
+    notif.style.fontWeight = '600';
+    notif.style.boxShadow = '0 2px 12px rgba(25,118,210,0.13)';
+    notif.style.zIndex = '9999';
+    notif.style.opacity = '0';
+    notif.style.transition = 'opacity 0.3s';
+    document.body.appendChild(notif);
+    setTimeout(() => { notif.style.opacity = '1'; }, 10);
+    setTimeout(() => {
+        notif.style.opacity = '0';
+        setTimeout(() => {
+            notif.remove();
+            window.location.href = '../index.html';
+        }, 400);
+    }, 1400);
+}
+// On profile modal open, fill in name, email, and account address from current user in localStorage
 document.addEventListener('DOMContentLoaded', function() {
     const profileIcon = document.getElementById('profile-icon');
-    const nameSpan = document.querySelector('.profile-info-row .profile-info-value');
-    const emailSpan = document.querySelectorAll('.profile-info-row .profile-info-value')[2];
-    const addressSpan = document.querySelectorAll('.profile-info-row .profile-info-value')[3];
-    if (profileIcon && nameSpan && emailSpan && addressSpan) {
+    const profileInfoValues = document.querySelectorAll('.profile-info-row .profile-info-value');
+    // 0: Name, 1: Account ID, 2: Email, 3: Account Address
+    if (profileIcon && profileInfoValues.length >= 4) {
         profileIcon.addEventListener('click', function() {
-            const name = localStorage.getItem('cryptonest_name');
-            const email = localStorage.getItem('cryptonest_email');
-            const address = localStorage.getItem('cryptonest_address');
-            if (name) nameSpan.textContent = name;
-            if (email) emailSpan.textContent = email;
-            if (address) addressSpan.textContent = address;
+            let user = null;
+            try {
+                user = JSON.parse(localStorage.getItem('cryptonest_current_user'));
+            } catch (e) {}
+            if (user) {
+                profileInfoValues[0].textContent = user.name || '';
+                // Account ID can be generated or left as is
+                profileInfoValues[2].textContent = user.email || '';
+                profileInfoValues[3].textContent = user.address || '';
+            }
         });
     }
 });
@@ -108,4 +153,37 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+});
+// Withdraw modal logic
+document.addEventListener('DOMContentLoaded', function() {
+    const withdrawBtn = document.getElementById('withdraw-btn');
+    const withdrawModal = document.getElementById('withdraw-modal');
+    const withdrawOverlay = document.getElementById('withdraw-modal-overlay');
+    const withdrawClose = document.getElementById('withdraw-modal-close');
+    if (withdrawBtn && withdrawModal && withdrawOverlay && withdrawClose) {
+        withdrawBtn.addEventListener('click', function() {
+            withdrawModal.classList.add('active');
+            withdrawOverlay.classList.add('active');
+        });
+        withdrawClose.addEventListener('click', function() {
+            withdrawModal.classList.remove('active');
+            withdrawOverlay.classList.remove('active');
+        });
+        withdrawOverlay.addEventListener('click', function() {
+            withdrawModal.classList.remove('active');
+            withdrawOverlay.classList.remove('active');
+        });
+    }
+    // Optional: handle withdraw form submit
+    const withdrawForm = document.getElementById('withdraw-form');
+    if (withdrawForm) {
+        withdrawForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Withdrawal request submitted!');
+            withdrawModal.classList.remove('active');
+            withdrawOverlay.classList.remove('active');
+            // Clear the form fields
+            withdrawForm.reset();
+        });
+    }
 });

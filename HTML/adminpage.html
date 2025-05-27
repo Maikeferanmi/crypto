@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CryptoNest</title>
+    <link rel="stylesheet" href="../CSS/adminpage.css">
+</head>
+<body>
+    <div class="admin-navbar">
+        <div class="logo">
+            <img src="../IMAGE/btc.webp" alt="Logo">
+            <span>CryptoNest</span>
+        </div>
+        <span class="admin-title">Admin Dashboard</span>
+    </div>
+
+    <main class="admin-main">
+        <!-- User Management -->
+        <section>
+            <h2 class="admin-section-title">User Management</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Account Address</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Investment Management -->
+        <section>
+            <h2 class="admin-section-title">Investment Management</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Plan</th>
+                        <th>Amount</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Transaction Monitoring -->
+        <section>
+            <h2 class="admin-section-title">Transaction Monitoring</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>User</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Analytics & Reporting -->
+        <section>
+            <h2 class="admin-section-title">Analytics & Reporting</h2>
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <div class="analytics-title">Total Users</div>
+                    <div class="analytics-value">--</div>
+                </div>
+                <div class="analytics-card">
+                    <div class="analytics-title">Total Investments</div>
+                    <div class="analytics-value">--</div>
+                </div>
+                <div class="analytics-card">
+                    <div class="analytics-title">Total Transactions</div>
+                    <div class="analytics-value">--</div>
+                </div>
+                <div class="analytics-card">
+                    <div class="analytics-title">Revenue</div>
+                    <div class="analytics-value">--</div>
+                </div>
+            </div>
+            <div class="analytics-note">* Analytics and reporting data will be shown here.</div>
+        </section>
+
+        <!-- Content Management -->
+        <section>
+            <h2 class="admin-section-title">Content Management</h2>
+            <div class="content-management-block">
+                <p>Manage homepage banners, blog posts, FAQs, and more.</p>
+                <button class="admin-btn">Edit Homepage</button>
+                <button class="admin-btn">Manage Blog</button>
+                <button class="admin-btn">Update FAQ</button>
+            </div>
+        </section>
+
+        <!-- Support & Communication -->
+        <section>
+            <h2 class="admin-section-title">Support & Communication</h2>
+            <div class="support-communication-block">
+                <p>View and respond to user support tickets, send announcements, and manage notifications.</p>
+                <button class="admin-btn">View Tickets</button>
+                <button class="admin-btn">Send Announcement</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="../JS/adminpage.js"></script>
+</body>
+</html>

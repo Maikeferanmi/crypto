@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const name = document.getElementById('fullname').value.trim();
             const email = document.getElementById('email').value.trim();
             const address = document.getElementById('account-address').value.trim();
+            const phone = document.getElementById('phone').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
 
@@ -16,13 +17,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Save to localStorage
-            localStorage.setItem('cryptonest_name', name);
-            localStorage.setItem('cryptonest_email', email);
-            localStorage.setItem('cryptonest_address', address);
-            localStorage.setItem('cryptonest_password', password);
+            // Multi-user support: store users as array in localStorage
+            let users = JSON.parse(localStorage.getItem('cryptonest_users') || '[]');
+            // Prevent duplicate email
+            if (users.some(u => u.email === email)) {
+                alert('An account with this email already exists. Please use a different email.');
+                return;
+            }
+            const user = {
+                name,
+                email,
+                address,
+                phone,
+                password
+            };
+            users.push(user);
+            localStorage.setItem('cryptonest_users', JSON.stringify(users));
 
-            // Redirect to login page after successful sign up
+            alert('Sign up successful, please login.');
             window.location.href = 'login.html';
         });
     }
