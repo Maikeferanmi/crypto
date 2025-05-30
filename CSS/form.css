@@ -1,3 +1,36 @@
+/* Custom notification for signup/login success */
+.custom-notification {
+    position: fixed;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 220px;
+    max-width: 90vw;
+    background: linear-gradient(90deg, #1976d2 60%, #21cbf3 100%);
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-size: 1.08em;
+    font-weight: 700;
+    box-shadow: 0 2px 12px rgba(25,118,210,0.13);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.32s, top 0.32s;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+.custom-notification.show {
+    opacity: 1;
+    pointer-events: auto;
+    top: 48px;
+}
+.notif-success {
+    background: linear-gradient(90deg, #43a047 60%, #21cbf3 100%);
+}
+.notif-error {
+    background: linear-gradient(90deg, #d32f2f 60%, #ff9800 100%);
+}
 /* Password input and toggle button styling moved from inline */
 .password-input-wrap {
     position: relative;

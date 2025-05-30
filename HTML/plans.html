@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CryptoNest Investment Plans - CryptoNest</title>
+    <link rel="shortcut icon" href="../IMAGE/btc.webp" type="image/x-icon">
     <link rel="stylesheet" href="../CSS/crypto.css">
     <link rel="stylesheet" href="../CSS/plans.css">
 </head>
@@ -14,12 +14,12 @@
             <img src="../IMAGE/btc.webp" alt="Logo" class="logo-img"><span class="logo-text"> CryptoNest</span>
         </div>
         <nav id="main-nav">
-            <a href="../index.html#home">Home</a>
-            <a href="../index.html#service">Service</a>
-            <a href="../index.html#blog">Blog</a>
-            <a href="../index.html#contact">Contact</a>
-            <a href="../index.html#faq">FAQ</a>
-            <a href="../index.html#updates">Updates</a>
+            <a href="#">Home</a>
+            <a href="../HTML/plans.html">Invest</a>
+            <a href="../HTML/aboutus.html">About Us</a>
+            <a href="../HTML/FAQ.html">FAQ</a>
+            <a href="../HTML/blog.html">Blog</a>
+            <a href="../HTML/receipt.html">Updates</a> 
         </nav>
         <div class="navbar-actions">
             <img src="https://img.icons8.com/ios-filled/28/1976d2/user-male-circle.png" alt="Profile" class="profile-icon" id="profile-icon" style="cursor:pointer;" />
@@ -32,15 +32,16 @@
     </div>
     <main class="plans-main-content">
         <div class="dashboard-balance-card">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
-                <div>
+            <div class="dashboard-balance-flex">
+                <div class="dashboard-balance-info">
                     <div class="balance-label">Available Balance</div>
-                    <div class="balance-amount">$20.00</div>
-                    <div class="balance-currency">BTC: 0.00029</div>
+                    <div class="balance-amount" id="balance-amount">$0.00</div>
+                    <div class="balance-currency" id="balance-currency">BTC: 0.00000</div>
                 </div>
-                <div style="display: flex; flex-direction: column; align-items: center; margin-left: 18px;">
-                    <span style="font-size: 1.2em; color: #00e676; margin-bottom: 4px;">&#9679; Active</span>
-                    <button class="withdraw-btn" id="withdraw-btn" style="display: flex; align-items: center; gap: 6px; background: linear-gradient(90deg, #21cbf3 100%); color: #fff; border: none; border-radius: 8px; padding: 12px 22px; font-size: 1.08em; font-weight: 700; box-shadow: 0 2px 8px rgba(67,160,71,0.10); cursor: pointer; transition: background 0.18s, transform 0.16s; letter-spacing: 0.5px;">
+                <div class="dashboard-balance-actions">
+                    <span class="balance-active-status" id="balance-status">&#9679; Inactive</span>
+                    <button class="deposit-btn" id="deposit-btn" type="button">Deposit</button>
+                    <button class="withdraw-btn" id="withdraw-btn" disabled>
                         <span>Withdraw</span>
                     </button>
                 </div>
@@ -62,12 +63,6 @@
         <button type="submit" class="withdraw-submit-btn">Submit Withdrawal</button>
     </form>
 </div>
-<style>
-
-</style>
-<script>
-
-</script>
         </div>
         <h1 class="plans-title">CryptoNest Investment Plans</h1>
         <div class="plans-grid">
@@ -188,24 +183,37 @@
 </div>
 <script src="../JS/plans.js"></script>
 </div>
-<!-- Invest Modal Overlay and Modal -->
-<div id="invest-modal-overlay"></div>
-<div id="invest-modal" role="dialog" aria-modal="true" aria-labelledby="invest-plan-name">
-    <button id="invest-modal-close" aria-label="Close modal">&times;</button>
-    <h2 id="invest-plan-name"></h2>
-    <p id="invest-plan-desc" class="modal-plan-desc"></p>
-    <div id="invest-plan-details"></div>
+<!-- Deposit Modal Overlay and Modal (for deposit only) -->
+<div id="deposit-overlay"></div>
+<div id="deposit-modal" role="dialog" aria-modal="true" aria-labelledby="deposit-modal-title">
+    <button id="deposit-modal-close" aria-label="Close modal">&times;</button>
+    <h2 id="deposit-modal-title">Deposit Bitcoin</h2>
     <div class="modal-payment-section">
-        <h3>How to Invest with Bitcoin</h3>
         <ol>
-            <li>Send your investment amount to the following Bitcoin address:</li>
-            <li class="btc-address-row"><span class="btc-address">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</span> <button class="copy-btc-btn" onclick="navigator.clipboard.writeText('bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh')">Copy</button></li>
+            <li>Send your deposit amount to the following Bitcoin address:</li>
+            <li class="btc-address-row"><span class="btc-address">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</span> <button class="copy-btc-btn" type="button">Copy</button></li>
             <li>After payment, email your transaction ID to <a href="mailto:support@cryptonest.com">support@cryptonest.com</a> for verification.</li>
         </ol>
-        <div class="modal-note">* Your investment will be activated after payment confirmation.</div>
+        <div class="modal-note">* Your deposit will be activated after payment confirmation.</div>
     </div>
 </div>
-<script src="../JS/plans.js"></script>
+
+<!-- Invest Modal Overlay and Modal (for investment only) -->
+<div id="invest-overlay">
+  <div id="invest-modal" role="dialog" aria-modal="true" aria-labelledby="invest-plan-name">
+      <button id="invest-modal-close" aria-label="Close modal">&times;</button>
+      <h2 id="invest-plan-name">Investment Plan</h2>
+      <div id="invest-plan-desc" class="modal-plan-desc"></div>
+      <div id="invest-plan-details"></div>
+      <form id="invest-form" class="invest-form">
+          <div class="form-group">
+              <label for="invest-amount">Amount to Invest ($)</label>
+              <input type="number" id="invest-amount" name="invest-amount" min="1" required placeholder="Enter amount">
+          </div>
+          <button type="submit" class="invest-submit-btn">Invest</button>
+      </form>
+  </div>
+</div>
 </body>
     <footer class="footer">
         <div class="footer-content">

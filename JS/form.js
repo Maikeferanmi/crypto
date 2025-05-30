@@ -1,4 +1,3 @@
-// On form submit, save name, email, and account address to localStorage
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('.signup-form');
     if (form) {
@@ -34,8 +33,54 @@ document.addEventListener('DOMContentLoaded', function() {
             users.push(user);
             localStorage.setItem('cryptonest_users', JSON.stringify(users));
 
-            alert('Sign up successful, please login.');
-            window.location.href = 'login.html';
+            showCustomNotification('Sign up successful! Please login.', 'success', function() {
+                window.location.href = 'login.html';
+            });
+        });
+    }
+});
+
+// Custom notification for signup/login success
+function showCustomNotification(message, type, callback) {
+    const notif = document.createElement('div');
+    notif.className = 'custom-notification ' + (type === 'success' ? 'notif-success' : 'notif-error');
+    notif.textContent = message;
+    document.body.appendChild(notif);
+    setTimeout(() => { notif.classList.add('show'); }, 10);
+    setTimeout(() => {
+        notif.classList.remove('show');
+        setTimeout(() => {
+            notif.remove();
+            if (typeof callback === 'function') callback();
+        }, 400);
+    }, 1600);
+}
+// Show/hide password logic
+document.addEventListener('DOMContentLoaded', function() {
+    const pw = document.getElementById('password');
+    const pwBtn = document.getElementById('toggle-password');
+    if (pw && pwBtn) {
+        pwBtn.addEventListener('click', function() {
+            if (pw.type === 'password') {
+                pw.type = 'text';
+                pwBtn.textContent = '🙈';
+            } else {
+                pw.type = 'password';
+                pwBtn.textContent = '👁️';
+            }
+        });
+    }
+    const cpw = document.getElementById('confirm-password');
+    const cpwBtn = document.getElementById('toggle-confirm-password');
+    if (cpw && cpwBtn) {
+        cpwBtn.addEventListener('click', function() {
+            if (cpw.type === 'password') {
+                cpw.type = 'text';
+                cpwBtn.textContent = '🙈';
+            } else {
+                cpw.type = 'password';
+                cpwBtn.textContent = '👁️';
+            }
         });
     }
 });

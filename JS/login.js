@@ -1,5 +1,3 @@
-// login.js
-// Simple authentication using localStorage values set at sign up
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('.login-form');
@@ -15,14 +13,31 @@ document.addEventListener('DOMContentLoaded', function() {
             let users = JSON.parse(localStorage.getItem('cryptonest_users') || '[]');
             const user = users.find(u => u.email === emailInput && u.password === passwordInput);
             if (!user) {
-                alert('Invalid email or password. Please try again.');
+                showCustomNotification('Invalid email or password. Please try again.', 'error');
                 return;
             }
             // Store current user info for session
             localStorage.setItem('cryptonest_current_user', JSON.stringify(user));
             // Show login success message then redirect
-            alert('Login successful!');
-            window.location.href = 'plans.html';
+            showCustomNotification('Login successful!', 'success', function() {
+                window.location.href = 'plans.html';
+            });
         });
     }
 });
+
+// Custom notification for login/signup success
+function showCustomNotification(message, type, callback) {
+    const notif = document.createElement('div');
+    notif.className = 'custom-notification ' + (type === 'success' ? 'notif-success' : 'notif-error');
+    notif.textContent = message;
+    document.body.appendChild(notif);
+    setTimeout(() => { notif.classList.add('show'); }, 10);
+    setTimeout(() => {
+        notif.classList.remove('show');
+        setTimeout(() => {
+            notif.remove();
+            if (typeof callback === 'function') callback();
+        }, 400);
+    }, 1600);
+}

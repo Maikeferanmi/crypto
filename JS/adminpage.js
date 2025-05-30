@@ -1,4 +1,3 @@
-// --- Admin Page Functionality ---
 document.addEventListener('DOMContentLoaded', function() {
     // USER MANAGEMENT
     const users = JSON.parse(localStorage.getItem('cryptonest_users') || '[]');

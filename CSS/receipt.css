@@ -1,0 +1,105 @@
+body {
+    background: #e2f2f8;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.receipt-container {
+    max-width: 420px;
+    margin: 60px auto;
+    background: linear-gradient(120deg, #e3f2fd 0%, #cde8ff 100%);
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(25,118,210,0.10);
+    padding: 36px 32px 28px 32px;
+    text-align: center;
+}
+.receipt-logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    gap: 10px;
+}
+.receipt-logo-row img {
+    height: 48px;
+    width: 48px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.10);
+}
+.receipt-logo-row span {
+    font-size: 2em;
+    font-weight: 700;
+    color: #1976d2;
+    letter-spacing: 1px;
+}
+.receipt-icon {
+    font-size: 54px;
+    color: #00e676;
+    margin-bottom: 18px;
+}
+.receipt-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: #1976d2;
+    margin-bottom: 10px;
+}
+.receipt-message {
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 24px;
+}
+.receipt-details {
+    background: #bcd9f1;
+    border-radius: 8px;
+    padding: 18px 16px;
+    margin-bottom: 24px;
+    text-align: left;
+    font-size: 1.1em;
+}
+.receipt-details strong {
+    color: #1976d2;
+}
+.receipt-btn {
+    display: inline-block;
+    background: linear-gradient(90deg, #1976d2 60%, #21cbf3 100%);
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.receipt-btn:hover {
+    background: linear-gradient(90deg, #1565c0 60%, #00bcd4 100%);
+}
+.receipt-btn:active {
+    background: linear-gradient(90deg, #0d47a1 60%, #0097a7 100%);
+}
+
+@media (max-width: 600px) {
+    .receipt-container {
+        max-width: 98vw;
+        margin: 24px 1vw;
+        padding: 58px 6vw 58px 6vw;
+    }
+    .receipt-logo-row img {
+        height: 36px;
+        width: 36px;
+    }
+    .receipt-logo-row span {
+        font-size: 2em;
+    }
+    .receipt-title {
+        font-size: 1.2em;
+    }
+    .receipt-details {
+        font-size: 1em;
+        padding: 12px 6px;
+    }
+    .receipt-btn {
+        padding: 10px 18px;
+        font-size: 0.98em;
+    }
+}

@@ -1,3 +1,277 @@
+/* Dashboard balance layout: info left, actions right */
+.dashboard-balance-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    justify-content: space-between;
+    gap: 18px;
+}
+.dashboard-balance-info {
+    flex: 1 1 0%;
+    min-width: 0;
+}
+.dashboard-balance-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    min-width: 170px;
+}
+.dashboard-balance-actions .balance-active-status {
+    margin-right: 0;
+    margin-bottom: 8px;
+}
+.dashboard-balance-actions .deposit-btn,
+.dashboard-balance-actions .withdraw-btn {
+    margin: 0 0 8px 0;
+    width: 120px;
+}
+@media (max-width: 700px) {
+    .dashboard-balance-flex {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .dashboard-balance-actions {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        min-width: 0;
+        margin-top: 10px;
+    }
+    .dashboard-balance-actions .deposit-btn,
+    .dashboard-balance-actions .withdraw-btn {
+        width: auto;
+        margin: 0 4px 0 0;
+    }
+    .dashboard-balance-actions .balance-active-status {
+        margin-bottom: 0;
+        margin-right: 8px;
+    }
+}
+/* Dashboard Action Buttons and Status Styling */
+.deposit-btn, .withdraw-btn {
+    padding: 12px 28px;
+    margin: 0 6px;
+    background: linear-gradient(90deg, #1976d2 60%, #21cbf3 100%);
+    color: #fff;
+    font-size: 1.08em;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.08);
+    cursor: pointer;
+    transition: background 0.18s, transform 0.16s, box-shadow 0.18s;
+    letter-spacing: 0.5px;
+    outline: none;
+}
+.deposit-btn:hover, .deposit-btn:focus,
+.withdraw-btn:hover, .withdraw-btn:focus {
+    background: linear-gradient(90deg, #1565c0 60%, #00bcd4 100%);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 4px 16px rgba(25,118,210,0.16);
+}
+.withdraw-btn:active, .deposit-btn:active {
+    background: linear-gradient(90deg, #0d47a1 60%, #0097a7 100%);
+}
+.balance-active-status {
+    display: inline-block;
+    font-size: 1.08em;
+    font-weight: 700;
+    color: #00e676;
+    
+    border-radius: 8px;
+    padding: 6px 18px;
+    margin-right: 10px;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 4px rgba(25,118,210,0.07);
+}
+@media (max-width: 700px) {
+    .deposit-btn, .withdraw-btn {
+        font-size: 0.98em;
+        padding: 10px 12px;
+        margin: 0 2px;
+        border-radius: 8px;
+    }
+    .balance-active-status {
+        font-size: 0.98em;
+        padding: 4px 10px;
+        margin-right: 4px;
+    }
+}
+/* Invest Modal Overlay and Modal Styles (match deposit overlay effect) */
+#invest-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(30,40,60,0.32);
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+#invest-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+#invest-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 48px rgba(25,118,210,0.18);
+    z-index: 2001;
+    min-width: 320px;
+    max-width: 79vw;
+    width: 400px;
+    padding: 32px 28px 24px 28px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.22s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#invest-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+#invest-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: #1976d2;
+    cursor: pointer;
+    z-index: 2;
+    transition: color 0.18s;
+}
+#invest-modal-close:hover, #invest-modal-close:focus {
+    color: #d32f2f;
+    outline: none;
+}
+/* Deposit Modal Overlay and Modal Styles */
+#deposit-overlay {
+     position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(30,40,60,0.32);
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+#deposit-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+#deposit-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 48px rgba(25,118,210,0.18);
+    z-index: 2001;
+    min-width: 320px;
+    max-width: 79vw;
+    width: 400px;
+    padding: 32px 28px 24px 28px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.22s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#deposit-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+#deposit-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: #1976d2;
+    cursor: pointer;
+    z-index: 2;
+    transition: color 0.18s;
+}
+#deposit-modal-close:hover, #deposit-modal-close:focus {
+    color: #d32f2f;
+    outline: none;
+}
+
+.invest-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+.invest-form label {
+    font-size: 1em;
+    color: #1976d2;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+.invest-form input[type="number"] {
+    padding: 12px;
+    border: 1.5px solid #b0c4de;
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+    transition: border 0.18s, box-shadow 0.18s;
+    background: #f4f6fb;
+}
+.invest-form input:focus {
+    border-color: #1976d2;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.10);
+}
+.invest-form span {
+    font-size: 1em;
+    color: #333;
+    font-weight: 500;
+    background: #f4f6fb;
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-width: 80px;
+    display: inline-block;
+}
+.invest-submit-btn {
+    width: 100%;
+    padding: 14px 0;
+    background: linear-gradient(90deg, #1976d2 60%, #21cbf3 100%);
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.10);
+    cursor: pointer;
+    transition: background 0.18s, transform 0.16s;
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+}
+.invest-submit-btn:hover, .invest-submit-btn:focus {
+    background: linear-gradient(90deg, #1565c0 60%, #1976d2 100%);
+    transform: translateY(-2px) scale(1.03);
+    outline: none;
+}
 /* Logout Button Styles */
 .logout-btn {
     width: 100%;
@@ -258,13 +532,15 @@
 }
 /* Profile Modal Overlay and Modal Styles */
 #profile-modal-overlay {
-    position: fixed;
+     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(30,40,60,0.32);
     z-index: 2000;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 #profile-modal-overlay.active {
     opacity: 1;
@@ -725,11 +1001,16 @@ body, html {
     .plan-card {
         padding: 14px 4vw 12px 4vw;
         max-width: 340px;
+        min-width: 240px;
+        width: 100%;
         margin: 0 auto;
+        box-sizing: border-box;
     }
     .plan-card:nth-child(3) {
-        max-width: none;
-        margin: initial;
+        max-width: 340px;
+        min-width: 240px;
+        width: 100%;
+        margin: 0 auto;
     }
     .plan-card h2 {
         font-size: 1.1em;
