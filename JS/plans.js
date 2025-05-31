@@ -86,10 +86,32 @@ function showLogoutNotification() {
         if (balanceAmount) balanceAmount.textContent = `$${totalBalance.toFixed(2)}`;
         if (balanceCurrency) balanceCurrency.textContent = `BTC: ${totalBTC.toFixed(5)}`;
         if (balanceStatus) {
-            balanceStatus.textContent = '\u25CF Active';
-            balanceStatus.style.color = '#00e676';
+            if (userInvestments.length > 0 && totalBalance > 0) {
+                balanceStatus.textContent = '\u25CF Active';
+                balanceStatus.style.color = '#00e676';
+            } else {
+                balanceStatus.textContent = '\u25CF Inactive';
+                balanceStatus.style.color = '#ff5252';
+            }
         }
         if (withdrawBtn) withdrawBtn.disabled = false;
+
+        // Update profile modal progress bar and title
+        const progressTitle = document.querySelector('.profile-dashboard-progress .progress-title');
+        const progressBarFill = document.querySelector('.profile-dashboard-progress .progress-bar-fill');
+        const progressBarLabel = document.querySelector('.profile-dashboard-progress .progress-bar-label');
+        if (progressTitle) {
+            if (userInvestments.length > 0 && totalBalance > 0) {
+                // Use the first active investment's plan name if available
+                const planName = userInvestments[0]?.plan || 'Your Plan';
+                progressTitle.textContent = `Investment Progress (${planName})`;
+                // Optionally update progress bar and label for active investment (not changed here)
+            } else {
+                progressTitle.textContent = 'No investment yet';
+                if (progressBarFill) progressBarFill.style.width = '0%';
+                if (progressBarLabel) progressBarLabel.textContent = 'Day 0 / 0';
+            }
+        }
 
         // Listen for investment creation and update dashboard live
         document.addEventListener('investmentCreated', function() {
@@ -119,10 +141,31 @@ function showLogoutNotification() {
                 if (balanceCurrency) balanceCurrency.textContent = `BTC: 0.00000`;
             }
             if (balanceStatus) {
-                balanceStatus.textContent = '\u25CF Active';
-                balanceStatus.style.color = '#00e676';
+                if (userInvestments.length > 0 && totalBalance > 0) {
+                    balanceStatus.textContent = '\u25CF Active';
+                    balanceStatus.style.color = '#00e676';
+                } else {
+                    balanceStatus.textContent = '\u25CF Inactive';
+                    balanceStatus.style.color = '#ff5252';
+                }
             }
             if (withdrawBtn) withdrawBtn.disabled = false;
+
+            // Update profile modal progress bar and title on dashboard update
+            const progressTitle = document.querySelector('.profile-dashboard-progress .progress-title');
+            const progressBarFill = document.querySelector('.profile-dashboard-progress .progress-bar-fill');
+            const progressBarLabel = document.querySelector('.profile-dashboard-progress .progress-bar-label');
+            if (progressTitle) {
+                if (userInvestments.length > 0 && totalBalance > 0) {
+                    const planName = userInvestments[0]?.plan || 'Your Plan';
+                    progressTitle.textContent = `Investment Progress (${planName})`;
+                    // Optionally update progress bar and label for active investment (not changed here)
+                } else {
+                    progressTitle.textContent = 'No investment yet';
+                    if (progressBarFill) progressBarFill.style.width = '0%';
+                    if (progressBarLabel) progressBarLabel.textContent = 'Day 0 / 0';
+                }
+            }
         });
     });
 // Profile modal logic
