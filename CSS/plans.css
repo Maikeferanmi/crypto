@@ -40,15 +40,71 @@
         gap: 8px;
         min-width: 0;
         margin-top: 10px;
-    }
-    .dashboard-balance-actions .deposit-btn,
-    .dashboard-balance-actions .withdraw-btn {
-        width: auto;
-        margin: 0 4px 0 0;
+        width: 100%;
+        flex-wrap: wrap;
     }
     .dashboard-balance-actions .balance-active-status {
         margin-bottom: 0;
         margin-right: 8px;
+        order: 1;
+        font-size: 0.98em;
+        padding: 4px 10px;
+    }
+    .dashboard-balance-actions .deposit-btn {
+        width: auto;
+        margin: 0 4px 0 0;
+        order: 2;
+        font-size: 0.98em;
+        padding: 10px 12px;
+        border-radius: 8px;
+    }
+    .dashboard-balance-actions .withdraw-btn {
+        width: auto;
+        margin: 0 0 0 0;
+        order: 3;
+        font-size: 0.98em;
+        padding: 10px 12px;
+        border-radius: 8px;
+    }
+}
+@media (max-width: 600px) {
+    .dashboard-balance-card {
+        padding: 10px 1vw 8px 1vw;
+        min-width: 0;
+        margin-bottom: 8px;
+        margin-top: 8px;
+    }
+    .dashboard-balance-flex {
+        gap: 4px;
+    }
+    .dashboard-balance-actions {
+        gap: 4px;
+        margin-top: 4px;
+        width: 100%;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .dashboard-balance-actions .balance-active-status {
+        font-size: 0.90em;
+        padding: 2px 6px;
+        margin-right: 2px;
+        order: 1;
+    }
+    .dashboard-balance-actions .deposit-btn,
+    .dashboard-balance-actions .withdraw-btn {
+        font-size: 0.90em;
+        padding: 7px 7px;
+        border-radius: 6px;
+        width: auto;
+        margin: 0 1px 0 0;
+    }
+    .balance-amount {
+        font-size: 1em;
+    }
+    .balance-label, .balance-currency {
+        font-size: 0.90em;
     }
 }
 /* Dashboard Action Buttons and Status Styling */
@@ -1024,13 +1080,15 @@ body, html {
     }
 }
 #withdraw-modal-overlay {
-    position: fixed;
+     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(30,40,60,0.32);
-    z-index: 3000;
+    z-index: 2000;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 #withdraw-modal-overlay.active {
     opacity: 1;
