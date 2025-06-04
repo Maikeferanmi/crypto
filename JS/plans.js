@@ -11,16 +11,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Notification function
+// Notification function for logout
 function showLogoutNotification() {
-    // Create notification element
+    showCustomNotification('You have been logged out.', 'info', () => {
+        window.location.href = '../index.html';
+    });
+}
+
+// General notification function for errors, success, info
+function showCustomNotification(message, type = 'info', callback) {
+    // Remove any existing notification
+    const existing = document.getElementById('custom-notification');
+    if (existing) existing.remove();
     const notif = document.createElement('div');
-    notif.textContent = 'You have been logged out.';
+    notif.id = 'custom-notification';
+    notif.textContent = message;
     notif.style.position = 'fixed';
     notif.style.top = '24px';
     notif.style.left = '50%';
     notif.style.transform = 'translateX(-50%)';
-    notif.style.background = 'linear-gradient(90deg, #1976d2 60%, #21cbf3 100%)';
+    notif.style.background =
+        type === 'error' ? 'linear-gradient(90deg, #d32f2f 60%, #ff5252 100%)'
+        : type === 'success' ? 'linear-gradient(90deg, #388e3c 60%, #00e676 100%)'
+        : 'linear-gradient(90deg, #1976d2 60%, #21cbf3 100%)';
     notif.style.color = '#fff';
     notif.style.padding = '14px 32px';
     notif.style.borderRadius = '8px';
@@ -30,15 +43,16 @@ function showLogoutNotification() {
     notif.style.zIndex = '9999';
     notif.style.opacity = '0';
     notif.style.transition = 'opacity 0.3s';
+    notif.style.pointerEvents = 'none';
     document.body.appendChild(notif);
     setTimeout(() => { notif.style.opacity = '1'; }, 10);
     setTimeout(() => {
         notif.style.opacity = '0';
         setTimeout(() => {
             notif.remove();
-            window.location.href = '../index.html';
+            if (typeof callback === 'function') callback();
         }, 400);
-    }, 1400);
+    }, type === 'error' ? 2200 : 1400);
 }
     // On profile modal open, fill in name, email, and account address from current user in localStorage
     document.addEventListener('DOMContentLoaded', function() {
@@ -74,6 +88,22 @@ function showLogoutNotification() {
         if (user && user.email) {
             userInvestments = investments.filter(inv => inv.email === user.email && inv.status === 'active');
         }
+        // If no active investment, add a default Starter Plan investment for demo
+        // if (user && user.email && userInvestments.length === 0) {
+        //     const starterInvestment = {
+        //         email: user.email,
+        //         amount: 500,
+        //         plan: 'Starter Plan',
+        //         duration: '7 days',
+        //         roi: '2%',
+        //         days: '7 days',
+        //         status: 'active',
+        //         date: new Date().toISOString()
+        //     };
+        //     investments.push(starterInvestment);
+        //     localStorage.setItem('cryptonest_investments', JSON.stringify(investments));
+        //     userInvestments = [starterInvestment];
+        // }
         const balanceAmount = document.getElementById('balance-amount');
         const balanceCurrency = document.getElementById('balance-currency');
         const balanceStatus = document.getElementById('balance-status');
@@ -105,7 +135,12 @@ function showLogoutNotification() {
                 // Use the first active investment's plan name if available
                 const planName = userInvestments[0]?.plan || 'Your Plan';
                 progressTitle.textContent = `Investment Progress (${planName})`;
-                // Optionally update progress bar and label for active investment (not changed here)
+                // Simulate progress at Day 2
+                const daysStr = userInvestments[0]?.days || '7 days';
+                const totalDays = parseInt(daysStr) || 7;
+                const currentDay = Math.min(2, totalDays); // Set to Day 2, but not more than total
+                if (progressBarFill) progressBarFill.style.width = ((currentDay / totalDays) * 100) + '%';
+                if (progressBarLabel) progressBarLabel.textContent = `Day ${currentDay} / ${totalDays}`;
             } else {
                 progressTitle.textContent = 'No investment yet';
                 if (progressBarFill) progressBarFill.style.width = '0%';
@@ -206,6 +241,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     investButtons.forEach(btn => {
         btn.addEventListener('click', function() {
+            // Always update balance before showing modal
+            let user = null;
+            try { user = JSON.parse(localStorage.getItem('cryptonest_current_user')); } catch (e) {}
+            let investments = [];
+            try { investments = JSON.parse(localStorage.getItem('cryptonest_investments')) || []; } catch (e) { investments = []; }
+            let userInvestments = [];
+            if (user && user.email) {
+                userInvestments = investments.filter(inv => inv.email === user.email && inv.status === 'active');
+            }
+            let totalBalance = userInvestments.reduce((sum, inv) => sum + (parseFloat(inv.amount) || 0), 0);
+            const balanceAmount = document.getElementById('balance-amount');
+            if (balanceAmount) balanceAmount.textContent = `$${totalBalance.toFixed(2)}`;
+
             // Get plan info
             const card = btn.closest('.plan-card');
             const planName = card.querySelector('h2').textContent;
@@ -248,13 +296,47 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const investForm = document.getElementById('invest-form');
     if (investForm) {
+        // Defensive: get invest-amount input directly
+        const investAmountInput = document.getElementById('invest-amount');
         investForm.addEventListener('submit', function(e) {
+            showLoadingSpinner('invest');
             e.preventDefault();
-            const amount = document.getElementById('invest-amount').value;
-            const plan = document.getElementById('invest-plan-summary').textContent;
-            const duration = document.getElementById('invest-plan-duration').textContent;
-            const roi = document.getElementById('invest-plan-roi').textContent;
-            const days = document.getElementById('invest-plan-days').textContent;
+            // Defensive: check input exists
+            if (!investAmountInput) {
+                hideLoadingSpinner('invest');
+                showCustomNotification('Investment amount input not found.', 'error');
+                return;
+            }
+            const amount = parseFloat(investAmountInput.value);
+            const plan = document.getElementById('invest-plan-summary')?.textContent || '';
+            const duration = document.getElementById('invest-plan-duration')?.textContent || '';
+            const roi = document.getElementById('invest-plan-roi')?.textContent || '';
+            const days = document.getElementById('invest-plan-days')?.textContent || '';
+            // Check against account balance
+            let balance = 0;
+            const balanceAmount = document.getElementById('balance-amount');
+            if (balanceAmount) {
+                balance = parseFloat(balanceAmount.textContent.replace(/[$,]/g, '')) || 0;
+            }
+            // Investment validation
+            if (isNaN(amount) || amount <= 0) {
+                hideLoadingSpinner('invest');
+                showCustomNotification('Please enter a valid investment amount.', 'error');
+                investAmountInput.value = '';
+                return;
+            }
+            if (isNaN(balance) || balance <= 0) {
+                hideLoadingSpinner('invest');
+                showCustomNotification('Account balance is too small for this investment. Please deposit.', 'error');
+                return;
+            }
+            // Balance-based validation: amount must not exceed balance
+            if (amount > balance) {
+                hideLoadingSpinner('invest');
+                showCustomNotification('Investment amount cannot exceed your account balance.', 'error');
+                investAmountInput.value = '';
+                return;
+            }
             // Save investment (demo: localStorage)
             let user = null;
             try { user = JSON.parse(localStorage.getItem('cryptonest_current_user')); } catch (e) {}
@@ -277,7 +359,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('invest-overlay').classList.remove('active');
                 // Dispatch event to update dashboard
                 document.dispatchEvent(new Event('investmentCreated'));
-                showCustomNotification('Investment successful!', 'success');
+                setTimeout(() => {
+                    hideLoadingSpinner('invest');
+                    showCustomNotification('Investment successful!', 'success');
+                }, 600);
+            } else {
+                hideLoadingSpinner('invest');
             }
         });
     }
@@ -325,8 +412,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const withdrawModal = document.getElementById('withdraw-modal');
     const withdrawOverlay = document.getElementById('withdraw-modal-overlay');
     const withdrawClose = document.getElementById('withdraw-modal-close');
+    const withdrawAmountInput = document.getElementById('withdraw-amount');
+    const bankNameSelect = document.getElementById('bank-name');
+    const bankNameOther = document.getElementById('bank-name-other');
+    // Show/hide the 'Other' bank name input if 'Other' is selected
+    if (bankNameSelect && bankNameOther) {
+        bankNameSelect.addEventListener('change', function() {
+            if (bankNameSelect.value === 'Other') {
+                bankNameOther.style.display = '';
+                bankNameOther.required = true;
+            } else {
+                bankNameOther.style.display = 'none';
+                bankNameOther.required = false;
+            }
+        });
+    }
     if (withdrawBtn && withdrawModal && withdrawOverlay && withdrawClose) {
         withdrawBtn.addEventListener('click', function() {
+            // Set max withdrawable amount to current account balance
+            let balance = 0;
+            const balanceAmount = document.getElementById('balance-amount');
+            if (balanceAmount) {
+                // Remove $ and commas, parse as float
+                balance = parseFloat(balanceAmount.textContent.replace(/[$,]/g, '')) || 0;
+            }
+            if (withdrawAmountInput) {
+                withdrawAmountInput.max = balance;
+                withdrawAmountInput.value = '';
+                withdrawAmountInput.placeholder = balance > 0 ? `Max: $${balance.toFixed(2)}` : 'Enter amount';
+            }
             withdrawModal.classList.add('active');
             withdrawOverlay.classList.add('active');
         });
@@ -343,12 +457,60 @@ document.addEventListener('DOMContentLoaded', function() {
     const withdrawForm = document.getElementById('withdraw-form');
     if (withdrawForm) {
         withdrawForm.addEventListener('submit', function(e) {
+            showLoadingSpinner('withdraw');
             e.preventDefault();
-            alert('Withdrawal request submitted!');
-            withdrawModal.classList.remove('active');
-            withdrawOverlay.classList.remove('active');
-            // Clear the form fields
-            withdrawForm.reset();
+            let balance = 0;
+            const balanceAmount = document.getElementById('balance-amount');
+            if (balanceAmount) {
+                balance = parseFloat(balanceAmount.textContent.replace(/[$,]/g, '')) || 0;
+            }
+            const withdrawValue = parseFloat(withdrawAmountInput.value) || 0;
+            if (withdrawValue > balance) {
+                hideLoadingSpinner('withdraw');
+                showCustomNotification('Withdrawal amount exceeds available balance.', 'error');
+                return;
+            }
+            if (withdrawValue <= 0) {
+                hideLoadingSpinner('withdraw');
+                showCustomNotification('Please enter a valid withdrawal amount.', 'error');
+                return;
+            }
+            setTimeout(() => {
+                hideLoadingSpinner('withdraw');
+                alert('Withdrawal request submitted!');
+                withdrawModal.classList.remove('active');
+                withdrawOverlay.classList.remove('active');
+                // Clear the form fields
+                withdrawForm.reset();
+            }, 600);
+// Loading spinner for invest/withdraw
+function showLoadingSpinner(type) {
+    let loading = document.getElementById('firebase-loading-text');
+    if (!loading) {
+        loading = document.createElement('div');
+        loading.id = 'firebase-loading-text';
+        loading.style.position = 'fixed';
+        loading.style.top = '0';
+        loading.style.left = '0';
+        loading.style.width = '100vw';
+        loading.style.height = '100vh';
+        loading.style.background = 'rgba(255,255,255,0.6)';
+        loading.style.display = 'flex';
+        loading.style.alignItems = 'center';
+        loading.style.justifyContent = 'center';
+        loading.style.zIndex = '99999';
+        loading.innerHTML = `<div style="font-size:1.3em;color:#1976d2;font-weight:600;letter-spacing:0.5px;">${type === 'withdraw' ? 'Processing withdrawal...' : 'Processing investment...'}</div>`;
+        document.body.appendChild(loading);
+    } else {
+        loading.innerHTML = `<div style="font-size:1.3em;color:#1976d2;font-weight:600;letter-spacing:0.5px;">${type === 'withdraw' ? 'Processing withdrawal...' : 'Processing investment...'}</div>`;
+        loading.style.display = 'flex';
+    }
+}
+
+function hideLoadingSpinner(type) {
+    const loading = document.getElementById('firebase-loading-text');
+    if (loading) loading.style.display = 'none';
+}
         });
     }
 });
@@ -362,6 +524,37 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target === this) {
             document.getElementById('invest-overlay').classList.remove('active');
             document.getElementById('invest-modal').classList.remove('active');
+        }
+    });
+});
+// Responsive update for invested amount in profile modal
+document.addEventListener('DOMContentLoaded', function() {
+    function updateProfileInvestedAmount() {
+        const investedAmountDiv = document.getElementById('profile-invested-amount');
+        let user = null;
+        try { user = JSON.parse(localStorage.getItem('cryptonest_current_user')); } catch (e) {}
+        let investments = [];
+        try { investments = JSON.parse(localStorage.getItem('cryptonest_investments')) || []; } catch (e) { investments = []; }
+        let userInvestments = [];
+        if (user && user.email) {
+            userInvestments = investments.filter(inv => inv.email === user.email && inv.status === 'active');
+        }
+        let total = userInvestments.reduce((sum, inv) => sum + (parseFloat(inv.amount) || 0), 0);
+        if (investedAmountDiv) {
+            investedAmountDiv.textContent = 'Amount Invested: $' + total.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+        }
+    }
+    updateProfileInvestedAmount();
+    document.addEventListener('investmentCreated', updateProfileInvestedAmount);
+    window.addEventListener('resize', function() {
+        // Optionally adjust font size or layout for responsiveness
+        const investedAmountDiv = document.getElementById('profile-invested-amount');
+        if (investedAmountDiv) {
+            if (window.innerWidth < 500) {
+                investedAmountDiv.style.fontSize = '0.98em';
+            } else {
+                investedAmountDiv.style.fontSize = '1.08em';
+            }
         }
     });
 });

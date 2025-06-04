@@ -57,8 +57,40 @@
             <input type="number" id="withdraw-amount" name="withdraw-amount" min="1" max="20" step="0.01" required placeholder="Enter amount">
         </div>
         <div class="form-group">
-            <label for="withdraw-address">Withdrawal Address</label>
-            <input type="text" id="withdraw-address" name="withdraw-address" required placeholder="Enter your BTC address">
+            <label for="withdraw-method">Withdrawal Method</label>
+            <select id="withdraw-method" name="withdraw-method" required>
+                <option value="btc">Bitcoin (BTC)</option>
+                <option value="bank">Local Bank</option>
+            </select>
+        </div>
+        <div class="form-group" id="btc-address-group">
+            <label for="withdraw-address">BTC Withdrawal Address</label>
+            <input type="text" id="withdraw-address" name="withdraw-address" placeholder="Enter your BTC address">
+        </div>
+        <div class="form-group" id="bank-details-group" style="display:none;">
+            <label for="bank-name" style="margin-top:8px;">Bank Name</label>
+            <select id="bank-name" name="bank-name" required>
+                <option value="">Select your bank</option>
+                <option value="Bank of America">Bank of America</option>
+                <option value="JPMorgan Chase">JPMorgan Chase</option>
+                <option value="Wells Fargo">Wells Fargo</option>
+                <option value="Citibank">Citibank</option>
+                <option value="U.S. Bank">U.S. Bank</option>
+                <option value="PNC Bank">PNC Bank</option>
+                <option value="Truist">Truist</option>
+                <option value="TD Bank">TD Bank</option>
+                <option value="Capital One">Capital One</option>
+                <option value="Regions Bank">Regions Bank</option>
+                <option value="KeyBank">KeyBank</option>
+                <option value="Huntington National Bank">Huntington National Bank</option>
+                <option value="Old National Bank">Old National Bank</option>
+                <option value="Other">Other (type below)</option>
+            </select>
+            <input type="text" id="bank-name-other" name="bank-name-other" placeholder="Enter bank name" style="display:none;margin-top:8px;">
+            <label for="bank-routing-number">Bank Routing Number</label>
+            <input type="text" id="bank-routing-number" name="bank-routing-number" placeholder="Enter routing number">
+            <label for="bank-account-number" style="margin-top:8px;">Bank Account Number</label>
+            <input type="text" id="bank-account-number" name="bank-account-number" placeholder="Enter account number">
         </div>
         <button type="submit" class="withdraw-submit-btn">Submit Withdrawal</button>
     </form>
@@ -173,15 +205,44 @@
                 </div>
                 <div class="progress-bar-label">Day 1 / 7</div>
             </div>
+            <div class="profile-invested-amount" id="profile-invested-amount" style="margin-top:8px;font-size:1.08em;color:#1976d2;font-weight:700;text-align:center;word-break:break-word;">Amount Invested: $60</div>
         </div>
         <div class="profile-info-row"><span class="profile-info-label">Name:</span> <span class="profile-info-value">Your Name</span></div>
-        <div class="profile-info-row"><span class="profile-info-label">Account ID:</span> <span class="profile-info-value">CN-001234</span></div>
+        <div class="profile-info-row"><span class="profile-info-label">Account ID:</span> <span class="profile-info-value">CN-004323</span></div>
         <div class="profile-info-row"><span class="profile-info-label">Email:</span> <span class="profile-info-value">your.email@example.com</span></div>
         <div class="profile-info-row"><span class="profile-info-label">Account Address:</span> <span class="profile-info-value">bc1qc4pxt345pe8p7473qnmu8jzwehg8hyvpc9pw9p</span></div>
         <button id="logout-btn" class="logout-btn">Logout</button>
     </div>
 </div>
 <script src="../JS/plans.js"></script>
+</div>
+<script>
+// Withdrawal method toggle logic
+document.addEventListener('DOMContentLoaded', function() {
+    const methodSelect = document.getElementById('withdraw-method');
+    const btcGroup = document.getElementById('btc-address-group');
+    const bankGroup = document.getElementById('bank-details-group');
+    if (methodSelect && btcGroup && bankGroup) {
+        methodSelect.addEventListener('change', function() {
+            if (methodSelect.value === 'btc') {
+                btcGroup.style.display = '';
+                bankGroup.style.display = 'none';
+                document.getElementById('withdraw-address').required = true;
+                document.getElementById('bank-routing-number').required = false;
+                document.getElementById('bank-account-number').required = false;
+                document.getElementById('bank-name').required = false;
+            } else {
+                btcGroup.style.display = 'none';
+                bankGroup.style.display = '';
+                document.getElementById('withdraw-address').required = false;
+                document.getElementById('bank-routing-number').required = true;
+                document.getElementById('bank-account-number').required = true;
+                document.getElementById('bank-name').required = true;
+            }
+        });
+    }
+});
+</script>
 </div>
 <!-- Deposit Modal Overlay and Modal (for deposit only) -->
 <div id="deposit-overlay"></div>

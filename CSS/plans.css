@@ -1,3 +1,83 @@
+#bank-name, #bank-name-other {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    background: #fafcff;
+    color: #222;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+@media (max-width: 600px) {
+  #bank-name, #bank-name-other {
+    font-size: 0.98em;
+    padding: 10px 8px;
+    min-width: 0;
+    max-width: 100vw;
+  }
+  .withdraw-form .form-group label[for="bank-name"] {
+    font-size: 1em;
+    margin-bottom: 2px;
+  }
+}
+/* Style for the bank name select and other input in withdraw modal */
+#bank-name, #bank-name-other {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    background: #fafcff;
+    color: #222;
+    transition: border-color 0.2s;
+}
+#bank-name:focus, #bank-name-other:focus {
+    border-color: #1976d2;
+    outline: none;
+}
+#bank-name-other[style*="display:none"] {
+    margin-bottom: 0;
+}
+/* Label spacing for bank name */
+label[for="bank-name"] {
+    font-weight: 500;
+    color: #1976d2;
+    margin-bottom: 2px;
+    display: block;
+}
+#withdraw-method {
+    width: 100% !important;
+    padding: 10px 12px;
+    border: 1.5px solid #1976d2;
+    border-radius: 6px;
+    font-size: 1em;
+    background: #f8fbff;
+    color: #222;
+    margin-top: 6px;
+    margin-bottom: 8px;
+    transition: border 0.2s;
+}
+#withdraw-method:focus {
+    border-color: #21cbf3;
+    outline: none;
+    background: #e3f2fd;
+}
+@media (max-width: 600px) {
+    #withdraw-method {
+        font-size: 0.98em;
+        padding: 9px 8px;
+        border-radius: 6px;
+        margin-top: 4px;
+        margin-bottom: 6px;
+    }
+}
 /* Dashboard balance layout: info left, actions right */
 .dashboard-balance-flex {
     display: flex;
@@ -217,7 +297,7 @@
 }
 /* Deposit Modal Overlay and Modal Styles */
 #deposit-overlay {
-     position: fixed;
+    position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(30,40,60,0.32);
     z-index: 2000;
@@ -273,6 +353,23 @@
     outline: none;
 }
 
+/* Deposit Modal Title Styling */
+#deposit-modal-title {
+    text-align: center;
+    color: #1976d2;
+    font-size: 1.3em;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+#deposit-modal-title {
+    text-align: center;
+    color: #1976d2;
+    font-size: 1.3em;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
 .invest-form .form-group {
     display: flex;
     flex-direction: column;
@@ -1016,6 +1113,12 @@ body, html {
 @media (max-width: 600px) {
     #invest-modal {
         width: 92vw;
+        min-width: 0;
+        max-width: 340px;
+        padding: 12px 2vw 10px 2vw;
+    }
+    #deposit-modal {
+        width: 86vw;
         min-width: 0;
         max-width: 340px;
         padding: 12px 2vw 10px 2vw;
