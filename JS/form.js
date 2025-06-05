@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             const name = document.getElementById('fullname').value.trim();
             const email = document.getElementById('email').value.trim();
+            // Generate a random account ID (e.g., CN-XXXXXX)
+            function generateAccountId() {
+                const rand = Math.floor(100000 + Math.random() * 900000);
+                return 'CN-' + rand;
+            }
+            const accountId = generateAccountId();
             // const address = document.getElementById('account-address').value.trim(); // Hidden/disabled
             const phone = document.getElementById('phone').value.trim();
             const password = document.getElementById('password').value;
@@ -50,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     (window.db || firebase.firestore()).collection('users').doc(user.uid).set({
                         name,
                         email,
+                        accountId,
                         // address, // hidden/removed
                         phone,
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()

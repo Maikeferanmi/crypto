@@ -66,10 +66,10 @@ function showCustomNotification(message, type = 'info', callback) {
                     user = JSON.parse(localStorage.getItem('cryptonest_current_user'));
                 } catch (e) {}
                 if (user) {
+                    // Set name, account ID, and email from user object
                     profileInfoValues[0].textContent = user.name || '';
-                    // Account ID can be generated or left as is
+                    profileInfoValues[1].textContent = user.accountId || 'CN-XXXXXX';
                     profileInfoValues[2].textContent = user.email || '';
-                    profileInfoValues[3].textContent = user.address || '';
                 }
             });
         }
