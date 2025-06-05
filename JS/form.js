@@ -3,30 +3,41 @@ document.addEventListener('DOMContentLoaded', function() {
     if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            showLoadingSpinner();
+            // Show spinner inside the button
+            const submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn._originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<span class="btn-spinner" style="display:inline-block;vertical-align:middle;width:22px;height:22px;"><svg style="width:22px;height:22px;" viewBox="0 0 50 50"><circle style="fill:none;stroke:#1976d2;stroke-width:5;stroke-linecap:round;" cx="25" cy="25" r="20"></circle></svg></span> Loading...';
+                const style = document.createElement('style');
+                style.innerHTML = `.btn-spinner svg {animation: spinBtn 1s linear infinite;}@keyframes spinBtn{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}`;
+                style.id = 'btn-spinner-style';
+                document.head.appendChild(style);
+            }
             const name = document.getElementById('fullname').value.trim();
             const email = document.getElementById('email').value.trim();
-            const address = document.getElementById('account-address').value.trim();
+            // const address = document.getElementById('account-address').value.trim(); // Hidden/disabled
             const phone = document.getElementById('phone').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
 
-            // Password requirements
-            const passwordRequirements = [
-                { regex: /.{8,}/, message: 'at least 8 characters' },
-                { regex: /[A-Z]/, message: 'an uppercase letter' },
-                { regex: /[a-z]/, message: 'a lowercase letter' },
-                { regex: /[0-9]/, message: 'a number' },
-                { regex: /[!@#$%^&*(),.?":{}|<>]/, message: 'a special character' }
-            ];
-            const failed = passwordRequirements.filter(req => !req.regex.test(password));
-            if (failed.length > 0) {
-                showCustomNotification('Password must contain ' + failed.map(f => f.message).join(', ') + '.', 'error');
-                return;
-            }
+            // Password requirements (regex hidden for production)
+            // const passwordRequirements = [
+            //     { regex: /.{8,}/, message: 'at least 8 characters' },
+            //     { regex: /[A-Z]/, message: 'an uppercase letter' },
+            //     { regex: /[a-z]/, message: 'a lowercase letter' },
+            //     { regex: /[0-9]/, message: 'a number' },
+            //     { regex: /[!@#$%^&*(),.?":{}|<>]/, message: 'a special character' }
+            // ];
+            // const failed = passwordRequirements.filter(req => !req.regex.test(password));
+            // if (failed.length > 0) {
+            //     showCustomNotification('Password must contain ' + failed.map(f => f.message).join(', ') + '.', 'error');
+            //     return;
+            // }
 
             // Basic password match validation
             if (password !== confirmPassword) {
+                restoreSubmitBtn();
                 showCustomNotification('Passwords do not match. Please try again.', 'error', null, true);
                 return;
             }
@@ -39,21 +50,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     (window.db || firebase.firestore()).collection('users').doc(user.uid).set({
                         name,
                         email,
-                        address,
+                        // address, // hidden/removed
                         phone,
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     }).then(() => {
-                        hideLoadingSpinner();
+                        restoreSubmitBtn();
                         showCustomNotification('Sign up successful! Please login.', 'success', function() {
                             window.location.href = 'login.html';
                         });
                     }).catch((error) => {
-                        hideLoadingSpinner();
+                        restoreSubmitBtn();
                         showCustomNotification('Sign up succeeded, but failed to save profile: ' + error.message, 'error');
                     });
                 })
                 .catch((error) => {
-                    hideLoadingSpinner();
+                    restoreSubmitBtn();
                     let msg = error.message;
                     if (error.code === 'auth/email-already-in-use') {
                         msg = 'An account with this email already exists. Please use a different email.';
@@ -61,32 +72,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     showCustomNotification(msg, 'error');
                 });
 // Loading spinner logic
-function showLoadingSpinner() {
-    let spinner = document.getElementById('firebase-loading-spinner');
-    if (!spinner) {
-        spinner = document.createElement('div');
-        spinner.id = 'firebase-loading-spinner';
-        spinner.style.position = 'fixed';
-        spinner.style.top = '0';
-        spinner.style.left = '0';
-        spinner.style.width = '100vw';
-        spinner.style.height = '100vh';
-        spinner.style.background = 'rgba(255,255,255,0.6)';
-        spinner.style.display = 'flex';
-        spinner.style.alignItems = 'center';
-        spinner.style.justifyContent = 'center';
-        spinner.style.zIndex = '99999';
-        spinner.innerHTML = '<div style="border: 6px solid #e0e0e0; border-top: 6px solid #1976d2; border-radius: 50%; width: 48px; height: 48px; animation: spin 1s linear infinite;"></div>' +
-            '<style>@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}</style>';
-        document.body.appendChild(spinner);
-    } else {
-        spinner.style.display = 'flex';
+function restoreSubmitBtn() {
+    const form = document.querySelector('.signup-form');
+    if (!form) return;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) {
+        submitBtn.disabled = false;
+        if (submitBtn._originalText) {
+            submitBtn.innerHTML = submitBtn._originalText;
+        }
     }
-}
-
-function hideLoadingSpinner() {
-    const spinner = document.getElementById('firebase-loading-spinner');
-    if (spinner) spinner.style.display = 'none';
+    const style = document.getElementById('btn-spinner-style');
+    if (style) style.remove();
 }
         });
     }
