@@ -61,15 +61,40 @@ function showCustomNotification(message, type = 'info', callback) {
         // 0: Name, 1: Account ID, 2: Email, 3: Account Address
         if (profileIcon && profileInfoValues.length >= 4) {
             profileIcon.addEventListener('click', function() {
-                let user = null;
-                try {
-                    user = JSON.parse(localStorage.getItem('cryptonest_current_user'));
-                } catch (e) {}
-                if (user) {
-                    // Set name, account ID, and email from user object
-                    profileInfoValues[0].textContent = user.name || '';
-                    profileInfoValues[1].textContent = user.accountId || 'CN-XXXXXX';
-                    profileInfoValues[2].textContent = user.email || '';
+                // Use Firebase Auth to get current user
+                const firebaseUser = (window.firebase && window.firebase.auth) ? window.firebase.auth().currentUser : null;
+                if (firebaseUser && firebaseUser.uid) {
+                    // Always fetch latest user profile from Firestore for accurate info
+                    const db = (window.db || (window.firebase && window.firebase.firestore && window.firebase.firestore()));
+                    if (db) {
+                        db.collection('users').doc(firebaseUser.uid).get().then(function(doc) {
+                            const userProfile = doc.exists ? doc.data() : {};
+                            // Defensive: fallback to firebaseUser if Firestore is missing fields
+                            profileInfoValues[0].textContent = userProfile.name || firebaseUser.displayName || '(No Name)';
+                            profileInfoValues[1].textContent = userProfile.accountId || 'CN-XXXXXX';
+                            profileInfoValues[2].textContent = userProfile.email || firebaseUser.email || '';
+                        }).catch(function() {
+                            // fallback to localStorage if Firestore fails
+                            let user = null;
+                            try { user = JSON.parse(localStorage.getItem('cryptonest_current_user')); } catch (e) {}
+                            if (user) {
+                                profileInfoValues[0].textContent = user.name || '';
+                                profileInfoValues[1].textContent = user.accountId || 'CN-XXXXXX';
+                                profileInfoValues[2].textContent = user.email || '';
+                            }
+                        });
+                    }
+                } else {
+                    // fallback to localStorage if not signed in
+                    let user = null;
+                    try {
+                        user = JSON.parse(localStorage.getItem('cryptonest_current_user'));
+                    } catch (e) {}
+                    if (user) {
+                        profileInfoValues[0].textContent = user.name || '';
+                        profileInfoValues[1].textContent = user.accountId || 'CN-XXXXXX';
+                        profileInfoValues[2].textContent = user.email || '';
+                    }
                 }
             });
         }
@@ -203,7 +228,55 @@ function showCustomNotification(message, type = 'info', callback) {
             }
         });
     });
-// Profile modal logic
+// --- Profile Modal Info Update Logic ---
+function updateProfileModalInfo() {
+    const profileInfoValues = document.querySelectorAll('.profile-info-row .profile-info-value');
+    // 0: Name, 1: Account ID, 2: Email
+    if (profileInfoValues.length >= 3) {
+        // Try Firebase Auth first
+        const firebaseUser = (window.firebase && window.firebase.auth) ? window.firebase.auth().currentUser : null;
+        if (firebaseUser && firebaseUser.uid) {
+            const db = (window.db || (window.firebase && window.firebase.firestore && window.firebase.firestore()));
+            if (db) {
+                db.collection('users').doc(firebaseUser.uid).get().then(function(doc) {
+                    const userProfile = doc.exists ? doc.data() : {};
+                    profileInfoValues[0].textContent = userProfile.name || firebaseUser.displayName || '(No Name)';
+                    profileInfoValues[1].textContent = userProfile.accountId || 'CN-XXXXXX';
+                    profileInfoValues[2].textContent = userProfile.email || firebaseUser.email || '';
+                }).catch(function() {
+                    // fallback to localStorage if Firestore fails
+                    let user = null;
+                    try { user = JSON.parse(localStorage.getItem('cryptonest_current_user')); } catch (e) {}
+                    if (user) {
+                        profileInfoValues[0].textContent = user.name || '';
+                        profileInfoValues[1].textContent = user.accountId || 'CN-XXXXXX';
+                        profileInfoValues[2].textContent = user.email || '';
+                    } else {
+                        profileInfoValues[0].textContent = '';
+                        profileInfoValues[1].textContent = '';
+                        profileInfoValues[2].textContent = '';
+                    }
+                });
+            }
+        } else {
+            // fallback to localStorage if not signed in
+            let user = null;
+            try {
+                user = JSON.parse(localStorage.getItem('cryptonest_current_user'));
+            } catch (e) {}
+            if (user) {
+                profileInfoValues[0].textContent = user.name || '';
+                profileInfoValues[1].textContent = user.accountId || 'CN-XXXXXX';
+                profileInfoValues[2].textContent = user.email || '';
+            } else {
+                profileInfoValues[0].textContent = '';
+                profileInfoValues[1].textContent = '';
+                profileInfoValues[2].textContent = '';
+            }
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const profileIcon = document.getElementById('profile-icon');
     const profileModal = document.getElementById('profile-modal');
@@ -211,6 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const profileClose = document.getElementById('profile-modal-close');
     if (profileIcon && profileModal && profileOverlay && profileClose) {
         profileIcon.addEventListener('click', function() {
+            updateProfileModalInfo();
             profileModal.classList.add('active');
             profileOverlay.classList.add('active');
         });
@@ -483,6 +557,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Clear the form fields
                 withdrawForm.reset();
             }, 600);
+        });
+    }
+});
 // Loading spinner for invest/withdraw
 function showLoadingSpinner(type) {
     let loading = document.getElementById('firebase-loading-text');
@@ -511,9 +588,6 @@ function hideLoadingSpinner(type) {
     const loading = document.getElementById('firebase-loading-text');
     if (loading) loading.style.display = 'none';
 }
-        });
-    }
-});
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('invest-modal-close').addEventListener('click', function() {
         document.getElementById('invest-overlay').classList.remove('active');
